@@ -1,9 +1,11 @@
 plugins {
     id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
 }
 
 group 'wood.mike'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -11,10 +13,14 @@ repositories {
 
 dependencies {
     implementation 'org.apache.groovy:groovy:4.0.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation gradleApi()
 }
 
-test {
-    useJUnitPlatform()
+gradlePlugin {
+    plugins {
+        filePlugin {
+            id = 'wood.mike.file-based-plugin'
+            implementationClass = 'wood.mike.FilePlugin'
+        }
+    }
 }
